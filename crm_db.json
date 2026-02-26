@@ -1,0 +1,20 @@
+{
+    "TechBuild_Inc": {
+        "tier": "VIP",
+        "lifetime_value": 450000,
+        "frequent_purchases": [
+            "Cement_M500",
+            "Steel_Rebar"
+        ],
+        "current_discount_eligible": 0.05
+    },
+    "HomeFix_LLC": {
+        "tier": "Standard",
+        "lifetime_value": 15000,
+        "frequent_purchases": [
+            "Dry_Mix_Knauf",
+            "Paint_White"
+        ],
+        "current_discount_eligible": 0.0
+    }
+}

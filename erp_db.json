@@ -1,0 +1,29 @@
+{
+    "Cement_M500": {
+        "stock": 800,
+        "days_in_warehouse": 10,
+        "base_price": 5.0
+    },
+    "Steel_Rebar": {
+        "stock": 200,
+        "days_in_warehouse": 5,
+        "base_price": 45.0
+    },
+    "Dry_Mix_Knauf": {
+        "stock": 150,
+        "days_in_warehouse": 20,
+        "base_price": 8.5
+    },
+    "Primer_X1": {
+        "stock": 300,
+        "days_in_warehouse": 120,
+        "base_price": 12.0,
+        "promo_discount": 0.3
+    },
+    "Facing_Brick": {
+        "stock": 5000,
+        "days_in_warehouse": 95,
+        "base_price": 0.8,
+        "promo_discount": 0.2
+    }
+}
