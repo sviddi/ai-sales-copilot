@@ -58,7 +58,7 @@ graph TD
     Client -->|Speaks| UI_Chat
     
     UI_Chat -->|Streams Transcript| LLM
-    LLM -->|Generates [🔥 HINT]| UI_Hints
+    LLM -->|"Generates [🔥 HINT]"| UI_Hints
     UI_Hints -->|Displays Action| Manager
 
     LLM <-->|ReAct Loop| Router
@@ -67,5 +67,7 @@ graph TD
     Router -->|MCP Protocol| Tool_Promo
 
     Tool_CRM -.->|Read| CRM
+    Tool_Inv -.->|Read| ERP
+    Tool_Promo -.->|Read| ERP
     Tool_Inv -.->|Read| ERP
     Tool_Promo -.->|Read| ERP
