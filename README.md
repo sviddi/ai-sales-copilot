@@ -15,18 +15,57 @@ A real-time AI assistant built for Sales Managers in B2B enterprise environments
 
 ```mermaid
 graph TD
-    classDef ui fill:#f3f4f6,stroke:#374151,stroke-width:2px,color:#111827;
-    classDef orchestrator fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0c4a6e;
-    classDef mcp fill:#ffedd5,stroke:#ea580c,stroke-width:2px,color:#7c2d12;
-    classDef database fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    %% Custom Enterprise Colors
+    classDef actor fill:#f8fafc,stroke:#94a3b8,stroke-width:2px,color:#0f172a,stroke-dasharray: 5 5;
+    classDef frontend fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a;
+    classDef agent fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d;
+    classDef mcp fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef db fill:#f3f4f6,stroke:#4b5563,stroke-width:2px,color:#111827;
 
-    UI[Streamlit UI<br>Live Transcript & Hints]:::ui
-    Agent[LangGraph Copilot<br>Reasoning Engine]:::orchestrator
-    MCP[FastMCP Server<br>Enterprise Tools]:::mcp
-    DB_CRM[(CRM Database<br>Profiles & Tiers)]:::database
-    DB_ERP[(ERP Warehouse<br>Stock & Pricing)]:::database
+    %% 1. Real World
+    subgraph Real_World [1. Real World Interaction]
+        Manager((👤 Sales Manager)):::actor
+        Client((📞 Client)):::actor
+    end
 
-    UI <-->|Transcript Chunk / HINTs| Agent
-    Agent <-->|Secure Tool Calls| MCP
-    MCP -.->|get_client_profile| DB_CRM
-    MCP -.->|check_inventory<br>get_dead_stock_promos| DB_ERP
+    %% 2. Frontend Layer
+    subgraph UI_Layer [2. Frontend: Streamlit App]
+        UI_Chat[Live Transcript View]:::frontend
+        UI_Hints[AI Insights Panel]:::frontend
+    end
+
+    %% 3. Cognitive Engine (LangGraph)
+    subgraph AI_Core [3. Cognitive Engine: LangGraph]
+        LLM[GPT-4o-mini<br>Reasoning Node]:::agent
+        Router{Tool Router}:::agent
+    end
+
+    %% 4. Integration Layer (MCP)
+    subgraph MCP_Layer [4. Integration: FastMCP Server]
+        Tool_CRM[⚙️ get_client_profile]:::mcp
+        Tool_Inv[⚙️ check_inventory]:::mcp
+        Tool_Promo[⚙️ get_dead_stock_promos]:::mcp
+    end
+
+    %% 5. Data Layer
+    subgraph Data_Layer [5. Enterprise Databases]
+        CRM[(CRM DB<br>VIP Tiers)]:::db
+        ERP[(ERP DB<br>Stock & Age)]:::db
+    end
+
+    %% Data Flow
+    Manager -->|Speaks| UI_Chat
+    Client -->|Speaks| UI_Chat
+    
+    UI_Chat -->|Streams Transcript| LLM
+    LLM -->|Generates [🔥 HINT]| UI_Hints
+    UI_Hints -->|Displays Action| Manager
+
+    LLM <-->|ReAct Loop| Router
+    Router -->|MCP Protocol| Tool_CRM
+    Router -->|MCP Protocol| Tool_Inv
+    Router -->|MCP Protocol| Tool_Promo
+
+    Tool_CRM -.->|Read| CRM
+    Tool_Inv -.->|Read| ERP
+    Tool_Promo -.->|Read| ERP
